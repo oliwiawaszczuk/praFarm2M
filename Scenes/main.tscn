@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckd7qlexbmgbt"]
+[gd_scene load_steps=10 format=3 uid="uid://ckd7qlexbmgbt"]
 
 [ext_resource type="Texture2D" uid="uid://b31ycnuo37x6n" path="res://Assets/tileset.png" id="1_1kyjy"]
 [ext_resource type="Script" path="res://Scripts/mouse_controller.gd" id="1_c7uhv"]
 [ext_resource type="Script" path="res://Scripts/save.gd" id="2_frr7w"]
+[ext_resource type="Script" path="res://Scripts/day_night_system.gd" id="3_8i0gb"]
+[ext_resource type="Texture2D" uid="uid://1iy7hvieusjh" path="res://Assets/plants.png" id="4_0qmvh"]
+[ext_resource type="Texture2D" uid="uid://btqi2lo2bpgh2" path="res://Assets/king_duck_win_template.png" id="6_qw48u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j7xr"]
 resource_name = "terrain"
@@ -113,19 +116,101 @@ texture_region_size = Vector2i(32, 32)
 7:9/0 = 0
 8:9/0 = 0
 9:9/0 = 0
+0:0/next_alternative_id = 2
 0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_18qee"]
+texture = ExtResource("4_0qmvh")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+5:8/0 = 0
+6:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_rg8n0"]
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_0j7xr")
+sources/1 = SubResource("TileSetAtlasSource_18qee")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_c7uhv")
 
 [node name="save" type="Node2D" parent="."]
 script = ExtResource("2_frr7w")
+
+[node name="day,night system" type="Node2D" parent="."]
+script = ExtResource("3_8i0gb")
+
+[node name="Light" type="DirectionalLight2D" parent="day,night system"]
+color = Color(0.176965, 0.0243131, 0.308414, 1)
+energy = 0.3
 
 [node name="Terrain" type="TileMap" parent="."]
 texture_filter = 3
@@ -142,7 +227,7 @@ layer_2/z_index = 2
 layer_2/tile_data = PackedInt32Array(4, 0, 2, 65540, 0, 2, 3, 0, 2)
 layer_3/name = "Plant"
 layer_3/z_index = 3
-layer_3/tile_data = PackedInt32Array()
+layer_3/tile_data = PackedInt32Array(65540, 393217, 3, 3, 1, 2, 4, 131073, 4)
 
 [node name="MainCamera" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -156,3 +241,74 @@ offset_bottom = 40.0
 [node name="Coords" type="Label" parent="MainCamera/CanvasLayer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Hour" type="Label" parent="MainCamera/CanvasLayer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="CenterMessage" type="Label" parent="MainCamera/CanvasLayer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 91
+
+[node name="KingDuckWin" type="TextureRect" parent="MainCamera/CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -414.0
+offset_top = -233.0
+offset_right = 414.0
+offset_bottom = 233.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_qw48u")
+expand_mode = 1
+
+[node name="Header" type="Label" parent="MainCamera/CanvasLayer/KingDuckWin"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 49.0
+offset_right = 425.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 58
+text = "Title"
+
+[node name="Content" type="Label" parent="MainCamera/CanvasLayer/KingDuckWin"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 157.0
+offset_right = 416.0
+offset_bottom = 409.0
+theme_override_font_sizes/font_size = 26
+text = "Content"

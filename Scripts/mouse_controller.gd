@@ -16,9 +16,11 @@ func _ready():
 	terrain_tilemap = $Terrain
 
 func _input(event):
-	MouseMove(event)
-	ScreenTouch(event)
-	Detect_tile(event)
+	KeyDetect(event)
+	if !Global.is_paused:
+		MouseMove(event)
+		ScreenTouch(event)
+		Detect_tile(event)
 
 func _process(_delta):
 	if is_pressed:
@@ -62,7 +64,6 @@ func Detect_tile(event):
 		if event.button_index == MOUSE_BUTTON_LEFT: # podwojne wywolanie?
 			var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
 			coords_label.text = get_tile_data_by_tile_pos(tile_pos)
-			
 
 func get_tile_data_by_tile_pos(tile_pos) -> String:
 	var data: String = "(" + str(tile_pos.x) + "," + str(tile_pos.y) + ")"
@@ -74,3 +75,9 @@ func get_tile_data_by_tile_pos(tile_pos) -> String:
 				data += " - " + tile_name
 	
 	return data
+
+func KeyDetect(event):
+	if event is InputEventKey:
+		if event.keycode == KEY_ESCAPE and !event.is_pressed():
+			Global.is_paused = !Global.is_paused
+	$"MainCamera/CanvasLayer/HBoxContainer3/CenterMessage".text = "PAUSED" if Global.is_paused else ""
