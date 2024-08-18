@@ -18,7 +18,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 Tiles="*res://Scripts/Tiles.gd"
-Global="*res://Scripts/global.gd"
+Global="*res://Scripts/Global.gd"
+Plants="*res://Scripts/Plants.gd"
+QuestList="*res://Scripts/QuestList.gd"
 
 [display]
 
@@ -31,3 +33,4 @@ window/stretch/aspect="expand"
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+lights_and_shadows/use_physical_light_units=true

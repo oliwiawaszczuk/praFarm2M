@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://lwp3rp3skfd4"]
+
+[ext_resource type="Texture2D" uid="uid://dmo105wwgolj2" path="res://Assets/dialog.png" id="1_8d0pv"]
+[ext_resource type="Texture2D" uid="uid://bk7pas7xncud4" path="res://Assets/house.png" id="2_mahie"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Dialog" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(261, 156)
+scale = Vector2(4.405, 4.405)
+texture = ExtResource("1_8d0pv")
+
+[node name="Content" type="Label" parent="Dialog"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.363
+offset_top = -36.7588
+offset_right = 274.692
+offset_bottom = 45.1112
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+text = "efweffwefewfewf ewfwef"
+
+[node name="Image" type="Sprite2D" parent="Dialog"]
+position = Vector2(-59, -1)
+scale = Vector2(0.810855, 0.810855)
+texture = ExtResource("2_mahie")

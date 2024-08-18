@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckd7qlexbmgbt"]
+[gd_scene load_steps=11 format=3 uid="uid://ckd7qlexbmgbt"]
 
 [ext_resource type="Texture2D" uid="uid://b31ycnuo37x6n" path="res://Assets/tileset.png" id="1_1kyjy"]
 [ext_resource type="Script" path="res://Scripts/mouse_controller.gd" id="1_c7uhv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/day_night_system.gd" id="3_8i0gb"]
 [ext_resource type="Texture2D" uid="uid://1iy7hvieusjh" path="res://Assets/plants.png" id="4_0qmvh"]
 [ext_resource type="Texture2D" uid="uid://btqi2lo2bpgh2" path="res://Assets/king_duck_win_template.png" id="6_qw48u"]
+[ext_resource type="Script" path="res://Scripts/quest.gd" id="7_0on2x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j7xr"]
 resource_name = "terrain"
@@ -312,3 +313,15 @@ offset_right = 416.0
 offset_bottom = 409.0
 theme_override_font_sizes/font_size = 26
 text = "Content"
+
+[node name="Quest" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -71.0
+offset_right = 389.0
+grow_vertical = 0
+script = ExtResource("7_0on2x")
+
+[node name="Label" type="Label" parent="MainCamera/CanvasLayer/Quest"]
+layout_mode = 2

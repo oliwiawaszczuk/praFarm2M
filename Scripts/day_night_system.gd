@@ -1,7 +1,7 @@
 extends Node2D
 
-var night_color: Color = Color.hex(0x2d064f) #
-var day_color: Color = Color.hex(0xf6f5ff) #
+var night_color: Color = Color.hex(0x2d064f)
+var day_color: Color = Color.hex(0xf6f5ff)
 
 var light: DirectionalLight2D
 var hour_label: Label
