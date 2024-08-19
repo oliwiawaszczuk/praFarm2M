@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://lwp3rp3skfd4"]
+[gd_scene load_steps=2 format=3 uid="uid://lwp3rp3skfd4"]
 
 [ext_resource type="Texture2D" uid="uid://dmo105wwgolj2" path="res://Assets/dialog.png" id="1_8d0pv"]
-[ext_resource type="Texture2D" uid="uid://bk7pas7xncud4" path="res://Assets/house.png" id="2_mahie"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -24,9 +23,7 @@ offset_bottom = 45.1112
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.3, 0.3)
-text = "efweffwefewfewf ewfwef"
 
 [node name="Image" type="Sprite2D" parent="Dialog"]
 position = Vector2(-59, -1)
 scale = Vector2(0.810855, 0.810855)
-texture = ExtResource("2_mahie")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckd7qlexbmgbt"]
+[gd_scene load_steps=15 format=3 uid="uid://ckd7qlexbmgbt"]
 
 [ext_resource type="Texture2D" uid="uid://b31ycnuo37x6n" path="res://Assets/tileset.png" id="1_1kyjy"]
 [ext_resource type="Script" path="res://Scripts/mouse_controller.gd" id="1_c7uhv"]
@@ -6,7 +6,11 @@
 [ext_resource type="Script" path="res://Scripts/day_night_system.gd" id="3_8i0gb"]
 [ext_resource type="Texture2D" uid="uid://1iy7hvieusjh" path="res://Assets/plants.png" id="4_0qmvh"]
 [ext_resource type="Texture2D" uid="uid://btqi2lo2bpgh2" path="res://Assets/king_duck_win_template.png" id="6_qw48u"]
+[ext_resource type="Texture2D" uid="uid://bp3h0ek3egak4" path="res://Assets/book.png" id="6_sqktr"]
 [ext_resource type="Script" path="res://Scripts/quest.gd" id="7_0on2x"]
+[ext_resource type="Texture2D" uid="uid://dmo105wwgolj2" path="res://Assets/dialog.png" id="8_dgeai"]
+[ext_resource type="Texture2D" uid="uid://b0rt2n8dvmty2" path="res://Assets/tools/s_to_move.png" id="10_5iec3"]
+[ext_resource type="Texture2D" uid="uid://d3a6kwcwwbsc" path="res://Assets/tools/s_selecting.png" id="11_qmwl5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j7xr"]
 resource_name = "terrain"
@@ -280,6 +284,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 91
 
+[node name="Book" type="Sprite2D" parent="MainCamera/CanvasLayer/HBoxContainer3"]
+visible = false
+texture_filter = 1
+position = Vector2(164, 133)
+scale = Vector2(2, 2)
+texture = ExtResource("6_sqktr")
+
 [node name="KingDuckWin" type="TextureRect" parent="MainCamera/CanvasLayer"]
 visible = false
 anchors_preset = 8
@@ -325,3 +336,74 @@ script = ExtResource("7_0on2x")
 
 [node name="Label" type="Label" parent="MainCamera/CanvasLayer/Quest"]
 layout_mode = 2
+
+[node name="Dialog" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Dialog" type="Sprite2D" parent="MainCamera/CanvasLayer/Dialog"]
+texture_filter = 1
+position = Vector2(0, -112.17)
+scale = Vector2(4.405, 4.405)
+texture = ExtResource("8_dgeai")
+
+[node name="Content" type="Label" parent="MainCamera/CanvasLayer/Dialog/Dialog"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.363
+offset_top = -36.7588
+offset_right = 274.692
+offset_bottom = 45.1112
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+
+[node name="Image" type="Sprite2D" parent="MainCamera/CanvasLayer/Dialog/Dialog"]
+texture_filter = 1
+position = Vector2(-59, -1)
+scale = Vector2(0.810855, 0.810855)
+
+[node name="Tools" type="VBoxContainer" parent="MainCamera/CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -119.0
+offset_top = 16.0
+offset_right = 20.0
+offset_bottom = 196.0
+grow_horizontal = 0
+scale = Vector2(0.7, 0.7)
+
+[node name="to_move" type="Button" parent="MainCamera/CanvasLayer/Tools"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 26
+action_mode = 0
+keep_pressed_outside = true
+text = "Space"
+icon = ExtResource("10_5iec3")
+icon_alignment = 2
+
+[node name="selecting" type="Button" parent="MainCamera/CanvasLayer/Tools"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 26
+text = "1"
+icon = ExtResource("11_qmwl5")
+icon_alignment = 2

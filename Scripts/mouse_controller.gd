@@ -12,7 +12,7 @@ var coords_label: Label
 @export var terrain_tilemap: TileMap
 
 func _ready():
-	Global.ChangeTool(Global.Tools.to_move)
+	Global.ChangeCursor()
 	camera = get_node("MainCamera")
 	coords_label = $MainCamera/CanvasLayer/HBoxContainer/Coords
 	terrain_tilemap = $Terrain
@@ -101,6 +101,12 @@ func KeyDetect(event):
 		if event.keycode == KEY_P:
 			Global.is_paused = !Global.is_paused
 			$"MainCamera/CanvasLayer/HBoxContainer3/CenterMessage".text = "PAUSED" if Global.is_paused else ""
+			if Global.is_paused:
+				Global.current_cursor = Global.CursorState.idle
+				Global.ChangeCursor()
+			else:
+				Global.CursorToTool()
+				
 		if event.keycode == KEY_ESCAPE:
 			get_tree().quit()
 		if event.keycode == KEY_SPACE:
