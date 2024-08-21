@@ -14,9 +14,9 @@ var coords_label: Label
 func _ready():
 	Global.ChangeCursor()
 	camera = get_node("MainCamera")
+	camera.position = Global.camera_position
 	coords_label = $MainCamera/CanvasLayer/HBoxContainer/Coords
 	terrain_tilemap = $Terrain
-	$"MainCamera/CanvasLayer/HBoxContainer3/CenterMessage".text = "PAUSED" if Global.is_paused else ""
 
 func _input(event):
 	KeyDetect(event)
@@ -34,6 +34,7 @@ func MoveScreen():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var delta_pos = mouse_pos - start
 	camera.position -= delta_pos / camera.zoom * MOUSE_MOVE_RATIO
+	Global.camera_position = camera.position
 	start = mouse_pos
 
 func MouseMove(event):
@@ -98,21 +99,20 @@ func get_tile_data_by_tile_pos(tile_pos) -> String:
 
 func KeyDetect(event):
 	if event is InputEventKey and !event.is_pressed():
-		if event.keycode == KEY_P:
-			Global.is_paused = !Global.is_paused
-			$"MainCamera/CanvasLayer/HBoxContainer3/CenterMessage".text = "PAUSED" if Global.is_paused else ""
-			if Global.is_paused:
-				Global.current_cursor = Global.CursorState.idle
-				Global.ChangeCursor()
-			else:
-				Global.CursorToTool()
-				
-		if event.keycode == KEY_ESCAPE:
-			get_tree().quit()
-		if event.keycode == KEY_SPACE:
-			Global.ChangeTool(Global.Tools.to_move)
-		if event.keycode == KEY_1: # keycode to change
-			Global.ChangeTool(Global.Tools.selecting)
-		if event.keycode == KEY_2: # keycode to change
-			Global.ChangeTool(Global.Tools.putting)
-	
+		if !Global.is_paused:
+			if event.keycode == KEY_SPACE:
+				Global.ChangeTool(Global.Tools.to_move)
+			if event.keycode == KEY_1: # keycode to change
+				Global.ChangeTool(Global.Tools.selecting)
+			if event.keycode == KEY_2: # keycode to change
+				Global.ChangeTool(Global.Tools.putting)
+		if event.keycode == KEY_S:
+			Save.save_game_components()
+
+
+func _on_to_move_pressed() -> void:
+	Global.ChangeTool(Global.Tools.to_move)
+
+
+func _on_selecting_pressed() -> void:
+	Global.ChangeTool(Global.Tools.selecting)

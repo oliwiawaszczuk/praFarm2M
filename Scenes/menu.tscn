@@ -1,0 +1,83 @@
+[gd_scene load_steps=6 format=3 uid="uid://c71k822xru506"]
+
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_fbnj8"]
+[ext_resource type="Texture2D" uid="uid://bp3h0ek3egak4" path="res://Assets/book.png" id="1_w203p"]
+[ext_resource type="Texture2D" uid="uid://dwnef34w53274" path="res://Assets/SpriteSheet.png" id="3_2oa3l"]
+
+[sub_resource type="Gradient" id="Gradient_rvr2y"]
+offsets = PackedFloat32Array(0.350649)
+colors = PackedColorArray(0.105882, 0.133333, 0.211765, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y6uqn"]
+gradient = SubResource("Gradient_rvr2y")
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_fbnj8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+scale = Vector2(22.6875, 11.875)
+texture = SubResource("GradientTexture2D_y6uqn")
+
+[node name="Book" type="Sprite2D" parent="."]
+show_behind_parent = true
+texture_filter = 1
+scale = Vector2(2.375, 2.375)
+texture = ExtResource("1_w203p")
+
+[node name="Buttons" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 255.0
+offset_right = 387.0
+offset_bottom = 289.545
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Buttons"]
+layout_mode = 2
+
+[node name="save" type="Button" parent="Buttons/HFlowContainer"]
+layout_mode = 2
+text = "Save - S"
+
+[node name="resume" type="Button" parent="Buttons/HFlowContainer"]
+layout_mode = 2
+text = "Resume - ESC"
+
+[node name="quit" type="Button" parent="Buttons/HFlowContainer"]
+layout_mode = 2
+text = "Quit and save- Q"
+
+[node name="Day" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 194.0
+offset_top = -283.0
+offset_right = 234.0
+offset_bottom = -260.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="user" type="Sprite2D" parent="."]
+position = Vector2(-334, -216)
+texture = ExtResource("3_2oa3l")
+region_enabled = true
+region_rect = Rect2(36, 855, 65, 82)
+
+[connection signal="pressed" from="Buttons/HFlowContainer/save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Buttons/HFlowContainer/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Buttons/HFlowContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="tree_entered" from="Day" to="." method="_on_label_tree_entered"]

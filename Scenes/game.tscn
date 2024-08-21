@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ckd7qlexbmgbt"]
+[gd_scene load_steps=16 format=3 uid="uid://ckd7qlexbmgbt"]
 
 [ext_resource type="Texture2D" uid="uid://b31ycnuo37x6n" path="res://Assets/tileset.png" id="1_1kyjy"]
 [ext_resource type="Script" path="res://Scripts/mouse_controller.gd" id="1_c7uhv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://1iy7hvieusjh" path="res://Assets/plants.png" id="4_0qmvh"]
 [ext_resource type="Texture2D" uid="uid://btqi2lo2bpgh2" path="res://Assets/king_duck_win_template.png" id="6_qw48u"]
 [ext_resource type="Texture2D" uid="uid://bp3h0ek3egak4" path="res://Assets/book.png" id="6_sqktr"]
+[ext_resource type="Script" path="res://Scripts/scenes_menager.gd" id="6_xxhrc"]
 [ext_resource type="Script" path="res://Scripts/quest.gd" id="7_0on2x"]
 [ext_resource type="Texture2D" uid="uid://dmo105wwgolj2" path="res://Assets/dialog.png" id="8_dgeai"]
 [ext_resource type="Texture2D" uid="uid://b0rt2n8dvmty2" path="res://Assets/tools/s_to_move.png" id="10_5iec3"]
@@ -123,6 +124,7 @@ texture_region_size = Vector2i(32, 32)
 9:9/0 = 0
 0:0/next_alternative_id = 2
 0:0/0 = 0
+0:0/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_18qee"]
 texture = ExtResource("4_0qmvh")
@@ -201,10 +203,12 @@ texture = ExtResource("4_0qmvh")
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "can_plow"
+custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_0j7xr")
 sources/1 = SubResource("TileSetAtlasSource_18qee")
 
-[node name="Node2D" type="Node2D"]
+[node name="game" type="Node2D"]
 script = ExtResource("1_c7uhv")
 
 [node name="save" type="Node2D" parent="."]
@@ -220,24 +224,22 @@ energy = 0.3
 [node name="Terrain" type="TileMap" parent="."]
 texture_filter = 3
 texture_repeat = 1
+rotation = -0.00453355
 tile_set = SubResource("TileSet_rg8n0")
 format = 2
 layer_0/name = "Terrain"
-layer_0/tile_data = PackedInt32Array(-4, 0, 0, -65539, 0, 0, -65540, 0, 0, -131075, 0, 0, -131074, 0, 0, -196609, 0, 0, -196608, 0, 0, -196607, 0, 0, -131070, 0, 0, -131069, 0, 0, -65532, 0, 0, -131067, 0, 0, -65531, 0, 0, 5, 0, 0, 65542, 0, 0, 65541, 0, 0, 131078, 0, 0, 131077, 0, 0, 131076, 0, 0, 131075, 0, 0, 131074, 0, 0, 131073, 0, 0, 65537, 0, 0, 65536, 0, 0, 131071, 0, 0, 131070, 0, 0, 131069, 0, 0, 131068, 0, 0, 65531, 0, 0, -5, 0, 0, -65541, 0, 0, -458768, 0, 0, -524303, 0, 0, -524302, 0, 0, -524301, 0, 0, -458764, 0, 0, -393228, 0, 0, -327692, 0, 0, -327693, 0, 0, -262158, 0, 0, -196622, 0, 0, -262159, 0, 0, -196623, 0, 0, -196624, 0, 0, -262161, 0, 0, -131086, 0, 0, -131085, 0, 0, -65548, 0, 0, -65549, 0, 0, -14, 0, 0, -15, 0, 0, -65551, 0, 0, -16, 0, 0, -65552, 0, 0, -131089, 0, 0, -131090, 0, 0, -196626, 0, 0, -262162, 0, 0, -327697, 0, 0, -393233, 0, 0, -393232, 0, 0, -458745, 0, 0, -458746, 0, 0, -524282, 0, 0, -589817, 0, 0, -589816, 0, 0, -589815, 0, 0, -524278, 0, 0, -458742, 0, 0, -458741, 0, 0, -393204, 0, 0, -458739, 0, 0, -393202, 65536, 0, -458738, 0, 0, -458737, 65536, 0, -393201, 65536, 0, -327664, 65536, 0, -262128, 65536, 0, -262129, 65536, 0, -196594, 65536, 0, -262131, 0, 0, -196596, 0, 0, -262133, 0, 0, -262134, 0, 0, -327670, 0, 0, -393207, 0, 0, -393208, 0, 0, -524281, 0, 0, 131081, 0, 0, 65545, 0, 0, 65546, 0, 0, 11, 0, 0, 65548, 0, 0, 13, 0, 0, 65550, 0, 0, 65551, 0, 0, 131088, 0, 0, 131089, 0, 0, 196626, 0, 0, 196627, 0, 0, 262163, 0, 0, 327700, 0, 0, 327699, 0, 0, 393235, 0, 0, 393234, 0, 0, 393233, 0, 0, 393232, 0, 0, 393231, 0, 0, 393230, 0, 0, 327694, 0, 0, 327693, 0, 0, 262157, 0, 0, 262156, 0, 0, 196619, 0, 0, 262154, 0, 0, 196617, 0, 0, 262153, 0, 0, 327688, 0, 0, 393224, 0, 0, 458760, 0, 0, 458759, 0, 0, 393223, 0, 0, 327687, 0, 0, 262151, 0, 0, 262152, 0, 0, 196618, 0, 0, 262155, 0, 0, 327690, 0, 0, 327689, 0, 0, 393225, 0, 0, 458762, 0, 0, 393227, 0, 0, 393228, 0, 0, 327692, 0, 0, 327691, 0, 0, 393226, 0, 0, 327686, 0, 0, 393222, 0, 0, 131086, 0, 0, 65549, 0, 0, 131084, 0, 0, 65547, 0, 0, 131082, 0, 0, 131083, 0, 0, 196620, 0, 0, 131085, 0, 0, 196621, 0, 0, 196622, 0, 0, 131087, 0, 0, 196623, 0, 0, 196624, 0, 0, 262160, 0, 0, 196625, 0, 0, 262161, 0, 0, 262162, 0, 0, 327698, 0, 0, 327697, 0, 0, 327696, 0, 0, 262159, 0, 0, 262158, 0, 0, 327695, 0, 0, -65533, 0, 0, -65534, 0, 0, -131071, 0, 0, -131072, 0, 0, -131073, 0, 0, -65538, 0, 0, -2, 0, 0, -65537, 0, 0, -1, 0, 0, -65536, 0, 0, 0, 0, 0, -65535, 0, 0, 1, 0, 0, 2, 0, 0, 65538, 0, 0, 3, 0, 0, 4, 0, 0, 65540, 0, 0, 65539, 0, 0, 65535, 0, 0, 65534, 0, 0, -3, 0, 0, 65532, 0, 0, 65533, 0, 0, -393205, 0, 0, -393206, 0, 0, -458743, 0, 0, -524279, 0, 0, -524280, 0, 0, -458744, 0, 0, -327669, 65536, 0, -327668, 65536, 0, -393203, 65536, 0, -327667, 65536, 0, -327666, 65536, 0, -262130, 65536, 0, -327665, 65536, 0, -262132, 65536, 0, -393230, 0, 0, -458765, 0, 0, -458766, 0, 0, -458767, 0, 0, -393231, 0, 0, -327696, 0, 0, -262160, 0, 0, -327695, 0, 0, -327694, 0, 0, -393229, 0, 0, -131088, 0, 0, -196625, 0, 0, -131087, 0, 0, -65550, 0, 0, -393200, 65536, 0, -458735, 65536, 0, -458734, 65536, 0, -393198, 65536, 0, -393197, 65536, 0, -327660, 65536, 0, -262124, 65536, 0, -196588, 65536, 0, -262125, 65536, 0, -196590, 65536, 0, -262127, 65536, 0, -327663, 65536, 0, -393199, 65536, 0, -327662, 65536, 0, -327661, 65536, 0, -262126, 65536, 0, -524275, 0, 0, -524273, 0, 0, -458736, 0, 0, -524271, 0, 0, -524270, 0, 0, -524269, 0, 0, -524268, 0, 0, -458732, 0, 0, -393196, 0, 0, -458733, 0, 0, -458731, 0, 0, -393194, 0, 0, -327658, 0, 0, -262122, 0, 0, -393195, 0, 0, -327659, 0, 0, -262123, 0, 0, -196586, 0, 0, -196587, 0, 0, -196595, 0, 0, -131059, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -131056, 0, 0, -131057, 0, 0, -131058, 0, 0, -196593, 0, 0, -196592, 0, 0, -196591, 0, 0, -131055, 0, 0, -131054, 0, 0, -131053, 0, 0, -196589, 0, 0, -131052, 0, 0, -458740, 0, 0, -524274, 0, 0, -589809, 0, 0, -524272, 0, 0, -589807, 0, 0, -589806, 0, 0, -589805, 0, 0, -589813, 0, 0, -524276, 0, 0, -524277, 0, 0, -393209, 0, 0, -393210, 0, 0, -458747, 0, 0, -524283, 0, 0)
 layer_1/name = "Pot"
 layer_1/z_index = 1
-layer_1/tile_data = PackedInt32Array(-65536, 0, 1, -131071, 0, 1, -65534, 0, 1, -65535, 0, 1, 2, 65536, 1, 3, 0, 1, 4, 65536, 1, 65540, 65536, 1)
 layer_2/name = "Ground"
 layer_2/z_index = 2
-layer_2/tile_data = PackedInt32Array(4, 0, 2, 65540, 0, 2, 3, 0, 2)
 layer_3/name = "Plant"
 layer_3/z_index = 3
-layer_3/tile_data = PackedInt32Array(65540, 393217, 3, 3, 1, 2, 4, 131073, 4)
 
 [node name="MainCamera" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="MainCamera"]
+script = ExtResource("6_xxhrc")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
 offset_right = 40.0
@@ -392,7 +394,6 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 26
-action_mode = 0
 keep_pressed_outside = true
 text = "Space"
 icon = ExtResource("10_5iec3")
@@ -407,3 +408,6 @@ theme_override_font_sizes/font_size = 26
 text = "1"
 icon = ExtResource("11_qmwl5")
 icon_alignment = 2
+
+[connection signal="pressed" from="MainCamera/CanvasLayer/Tools/to_move" to="." method="_on_to_move_pressed"]
+[connection signal="pressed" from="MainCamera/CanvasLayer/Tools/selecting" to="." method="_on_selecting_pressed"]

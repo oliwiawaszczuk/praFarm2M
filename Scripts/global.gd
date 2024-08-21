@@ -22,7 +22,7 @@ enum Tools {
 	selecting
 }
 
-var current_cursor: CursorState = CursorState.idle
+var current_cursor: CursorState = CursorState.selecting
 var current_tool: Tools = Tools.selecting
 func ChangeTool(tool: Tools):
 	if current_tool != tool:
@@ -48,6 +48,9 @@ func ChangeCursor():
 		push_error("cannot load cursor")
 		Input.set_custom_mouse_cursor(null)
 
-var is_paused: bool = true
-var hour: float = 7.0
+var is_paused: bool = false
 var day_count: int = 0
+@export var current_time: float = 7.0
+@export var terrain_tilemap: TileMap
+
+var camera_position: Vector2 = Vector2(0, 0)

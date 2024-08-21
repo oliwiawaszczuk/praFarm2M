@@ -10,6 +10,8 @@ var current_time: float = 7.0
 func _ready():
 	light = $"Light"
 	hour_label = $"../MainCamera/CanvasLayer/HBoxContainer2/Hour"
+	
+	current_time = Global.current_time
 
 
 func _process(delta):
@@ -50,7 +52,6 @@ func update_hour_text():
 	var hours = int(current_time)
 	var minutes = int((current_time - hours) * 60)
 
-	# Ręczne formatowanie godzin i minut, aby zawsze miały dwie cyfry
 	var hours_str = str(hours)
 	var minutes_str = str(minutes)
 
@@ -62,7 +63,6 @@ func update_hour_text():
 
 	var formatted_time = hours_str + ":" + minutes_str
 	
-	#var hour_text = str(round(current_time)) + ":" + str(float(current_time)%.2f) + " - " + str(current_time)
 	hour_label.text = "Day: " + str(Global.day_count) + " - " + formatted_time
 
 func update_time(delta):
@@ -70,4 +70,4 @@ func update_time(delta):
 	if current_time >= 24.0:
 		Global.day_count += 1
 		current_time = 0.0
-	Global.hour = current_time
+	Global.current_time = current_time
