@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctros82fg8vnq"
-path="res://.godot/imported/s_selecting.png-57c52d89941d912befc2062331f5db2d.ctex"
+uid="uid://chwcnphnvxhbr"
+path="res://.godot/imported/midnight.png-9421b27dd9e3e2d605f079d6b9e44a0c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tools/s_selecting.png"
-dest_files=["res://.godot/imported/s_selecting.png-57c52d89941d912befc2062331f5db2d.ctex"]
+source_file="res://Assets/tools/midnight.png"
+dest_files=["res://.godot/imported/midnight.png-9421b27dd9e3e2d605f079d6b9e44a0c.ctex"]
 
 [params]
 

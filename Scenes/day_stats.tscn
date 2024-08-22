@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://db4qde0cy40mp"]
+
+[ext_resource type="Texture2D" uid="uid://bfsd1ta6g52gt" path="res://Assets/tools/time_day_money_container.png" id="1_6jrni"]
+[ext_resource type="Script" path="res://Scripts/day_stats.gd" id="1_26qnu"]
+[ext_resource type="Texture2D" uid="uid://d4mrm22y1llm0" path="res://Assets/tools/midday.png" id="2_lyxqa"]
+[ext_resource type="Texture2D" uid="uid://dtng7j6cie1bd" path="res://Assets/tools/resumed.png" id="4_w1uvp"]
+
+[node name="Day_stats" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_26qnu")
+
+[node name="TimeDayMoneyContainer" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -40)
+scale = Vector2(3.19, 3.19)
+texture = ExtResource("1_6jrni")
+
+[node name="time_of_day" type="Sprite2D" parent="TimeDayMoneyContainer"]
+texture_filter = 1
+position = Vector2(-16.8, -2.24402)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_lyxqa")
+
+[node name="days" type="Label" parent="TimeDayMoneyContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.2
+offset_top = -22.0
+offset_right = -59.2
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.34, 0.34)
+theme_override_font_sizes/font_size = 24
+text = "
+"
+
+[node name="hour" type="Label" parent="TimeDayMoneyContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = -23.6
+offset_right = -2.00002
+offset_bottom = 29.4
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+theme_override_font_sizes/font_size = 33
+
+[node name="pause" type="Button" parent="TimeDayMoneyContainer"]
+texture_filter = 1
+offset_left = 14.6269
+offset_top = -7.7612
+offset_right = 38.6269
+offset_bottom = 16.2388
+scale = Vector2(0.425, 0.425)
+focus_mode = 0
+icon = ExtResource("4_w1uvp")
+flat = true
+
+[connection signal="tree_entered" from="TimeDayMoneyContainer" to="." method="_on_time_day_money_container_tree_entered"]
+[connection signal="pressed" from="TimeDayMoneyContainer/pause" to="." method="_on_pause_pressed"]

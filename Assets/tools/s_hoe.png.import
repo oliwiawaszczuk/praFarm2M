@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctros82fg8vnq"
-path="res://.godot/imported/s_selecting.png-57c52d89941d912befc2062331f5db2d.ctex"
+uid="uid://c182gbtsb2ll1"
+path="res://.godot/imported/s_hoe.png-191744eb19d0771023c2aab0a41c051b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tools/s_selecting.png"
-dest_files=["res://.godot/imported/s_selecting.png-57c52d89941d912befc2062331f5db2d.ctex"]
+source_file="res://Assets/tools/s_hoe.png"
+dest_files=["res://.godot/imported/s_hoe.png-191744eb19d0771023c2aab0a41c051b.ctex"]
 
 [params]
 

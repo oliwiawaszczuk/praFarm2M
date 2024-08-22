@@ -6,20 +6,32 @@ enum CursorState {
 	moving,
 	idle,
 	selecting,
-	select
+	select,
+	plowing,
 }
 var CursorStateString = {
 	CursorState.to_move: "to_move",
 	CursorState.moving: "moving",
 	CursorState.idle: "idle",
 	CursorState.selecting: "selecting",
-	CursorState.select: "select"
+	CursorState.select: "select",
+	CursorState.plowing: "plowing"
 }
 
 enum Tools {
 	to_move,
 	putting,
-	selecting
+	plowing,
+	selecting,
+	hoe,
+	watering_can
+}
+
+var tool_to_cursor_map = {
+	Tools.to_move: CursorState.to_move,
+	Tools.putting: CursorState.select,
+	Tools.selecting: CursorState.selecting,
+	Tools.plowing: CursorState.plowing,
 }
 
 var current_cursor: CursorState = CursorState.selecting
@@ -30,15 +42,13 @@ func ChangeTool(tool: Tools):
 		CursorToTool()
 
 func CursorToTool():
-	if current_tool == Tools.to_move:
-		current_cursor = CursorState.to_move
-	elif current_tool == Tools.putting:
-		current_cursor = CursorState.select
-	elif current_tool == Tools.selecting:
-		current_cursor = CursorState.selecting
+	var try_cursor = tool_to_cursor_map.get(current_tool, null)
+	if try_cursor == null:
+		Input.set_custom_mouse_cursor(null)
+		print("jeszcze nie ma cursora dla tool: ", str(Tools.keys()[current_tool]))
 	else:
-		current_cursor = CursorState.idle
-	ChangeCursor()
+		current_cursor = try_cursor
+		ChangeCursor()
 
 func ChangeCursor():
 	var cursor = load("res://Assets/cursor/" + CursorStateString[current_cursor] + ".png")
@@ -48,9 +58,23 @@ func ChangeCursor():
 		push_error("cannot load cursor")
 		Input.set_custom_mouse_cursor(null)
 
+enum FIELD_STATE{
+	EMPTY,
+	
+}
+
 var is_paused: bool = false
 var day_count: int = 0
 @export var current_time: float = 7.0
 @export var terrain_tilemap: TileMap
 
 var camera_position: Vector2 = Vector2(0, 0)
+
+
+enum time_of_day_state {
+	MIDDAY,
+	MIDNIGHT,
+	SUNRISE,
+	SUNSET
+}
+var current_time_of_day: time_of_day_state

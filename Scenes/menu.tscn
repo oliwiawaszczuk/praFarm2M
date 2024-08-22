@@ -12,6 +12,7 @@ colors = PackedColorArray(0.105882, 0.133333, 0.211765, 1)
 gradient = SubResource("Gradient_rvr2y")
 
 [node name="Menu" type="Control"]
+z_index = 99
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

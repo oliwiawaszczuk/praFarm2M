@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctros82fg8vnq"
-path="res://.godot/imported/s_selecting.png-57c52d89941d912befc2062331f5db2d.ctex"
+uid="uid://d4mrm22y1llm0"
+path="res://.godot/imported/midday.png-79b0aba8bd4da6c67f103e1a4ea161f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tools/s_selecting.png"
-dest_files=["res://.godot/imported/s_selecting.png-57c52d89941d912befc2062331f5db2d.ctex"]
+source_file="res://Assets/tools/midday.png"
+dest_files=["res://.godot/imported/midday.png-79b0aba8bd4da6c67f103e1a4ea161f6.ctex"]
 
 [params]
 

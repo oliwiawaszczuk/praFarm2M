@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctros82fg8vnq"
-path="res://.godot/imported/s_selecting.png-57c52d89941d912befc2062331f5db2d.ctex"
+uid="uid://bfsd1ta6g52gt"
+path="res://.godot/imported/time_day_money_container.png-4da2f4a55b1a513d31dd98e20944f762.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/tools/s_selecting.png"
-dest_files=["res://.godot/imported/s_selecting.png-57c52d89941d912befc2062331f5db2d.ctex"]
+source_file="res://Assets/tools/time_day_money_container.png"
+dest_files=["res://.godot/imported/time_day_money_container.png-4da2f4a55b1a513d31dd98e20944f762.ctex"]
 
 [params]
 

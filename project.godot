@@ -23,6 +23,7 @@ Plants="*res://Scripts/Plants.gd"
 QuestList="*res://Scripts/QuestList.gd"
 ScenesMenager="*res://Scripts/scenes_menager.gd"
 Save="*res://Scripts/save.gd"
+TimeMenager="*res://Scripts/time_menager.gd"
 
 [display]
 

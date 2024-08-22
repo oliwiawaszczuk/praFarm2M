@@ -3,15 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://b31ycnuo37x6n" path="res://Assets/tileset.png" id="1_1kyjy"]
 [ext_resource type="Script" path="res://Scripts/mouse_controller.gd" id="1_c7uhv"]
 [ext_resource type="Script" path="res://Scripts/save.gd" id="2_frr7w"]
-[ext_resource type="Script" path="res://Scripts/day_night_system.gd" id="3_8i0gb"]
+[ext_resource type="Script" path="res://Scripts/time_menager.gd" id="3_8i0gb"]
 [ext_resource type="Texture2D" uid="uid://1iy7hvieusjh" path="res://Assets/plants.png" id="4_0qmvh"]
+[ext_resource type="Script" path="res://Scripts/load_components.gd" id="6_5bt5a"]
 [ext_resource type="Texture2D" uid="uid://btqi2lo2bpgh2" path="res://Assets/king_duck_win_template.png" id="6_qw48u"]
-[ext_resource type="Texture2D" uid="uid://bp3h0ek3egak4" path="res://Assets/book.png" id="6_sqktr"]
-[ext_resource type="Script" path="res://Scripts/scenes_menager.gd" id="6_xxhrc"]
 [ext_resource type="Script" path="res://Scripts/quest.gd" id="7_0on2x"]
 [ext_resource type="Texture2D" uid="uid://dmo105wwgolj2" path="res://Assets/dialog.png" id="8_dgeai"]
-[ext_resource type="Texture2D" uid="uid://b0rt2n8dvmty2" path="res://Assets/tools/s_to_move.png" id="10_5iec3"]
-[ext_resource type="Texture2D" uid="uid://d3a6kwcwwbsc" path="res://Assets/tools/s_selecting.png" id="11_qmwl5"]
+[ext_resource type="Texture2D" uid="uid://w8dijrj1temi" path="res://Assets/tools/s_to_move.png" id="10_5iec3"]
+[ext_resource type="Texture2D" uid="uid://ctros82fg8vnq" path="res://Assets/tools/s_selecting.png" id="11_qmwl5"]
+[ext_resource type="Texture2D" uid="uid://c182gbtsb2ll1" path="res://Assets/tools/s_hoe.png" id="13_quro0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j7xr"]
 resource_name = "terrain"
@@ -239,7 +239,7 @@ layer_3/z_index = 3
 zoom = Vector2(2, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="MainCamera"]
-script = ExtResource("6_xxhrc")
+script = ExtResource("6_5bt5a")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
 offset_right = 40.0
@@ -248,50 +248,6 @@ offset_bottom = 40.0
 [node name="Coords" type="Label" parent="MainCamera/CanvasLayer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-size_flags_vertical = 8
-
-[node name="Hour" type="Label" parent="MainCamera/CanvasLayer/HBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 8
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -128.0
-offset_right = 128.0
-offset_bottom = 128.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="CenterMessage" type="Label" parent="MainCamera/CanvasLayer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 91
-
-[node name="Book" type="Sprite2D" parent="MainCamera/CanvasLayer/HBoxContainer3"]
-visible = false
-texture_filter = 1
-position = Vector2(164, 133)
-scale = Vector2(2, 2)
-texture = ExtResource("6_sqktr")
 
 [node name="KingDuckWin" type="TextureRect" parent="MainCamera/CanvasLayer"]
 visible = false
@@ -378,15 +334,18 @@ position = Vector2(-59, -1)
 scale = Vector2(0.810855, 0.810855)
 
 [node name="Tools" type="VBoxContainer" parent="MainCamera/CanvasLayer"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -119.0
-offset_top = 16.0
-offset_right = 20.0
-offset_bottom = 196.0
+offset_left = -216.0
+offset_top = 6.0
+offset_right = 75.0
+offset_bottom = 278.0
 grow_horizontal = 0
 scale = Vector2(0.7, 0.7)
+size_flags_horizontal = 8
+size_flags_vertical = 4
 
 [node name="to_move" type="Button" parent="MainCamera/CanvasLayer/Tools"]
 texture_filter = 1
@@ -395,7 +354,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 26
 keep_pressed_outside = true
-text = "Space"
+text = "Space - to move"
 icon = ExtResource("10_5iec3")
 icon_alignment = 2
 
@@ -405,9 +364,20 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 26
-text = "1"
+text = "1 - to select"
 icon = ExtResource("11_qmwl5")
+icon_alignment = 2
+
+[node name="plow" type="Button" parent="MainCamera/CanvasLayer/Tools"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 26
+text = "2 - to plow"
+icon = ExtResource("13_quro0")
 icon_alignment = 2
 
 [connection signal="pressed" from="MainCamera/CanvasLayer/Tools/to_move" to="." method="_on_to_move_pressed"]
 [connection signal="pressed" from="MainCamera/CanvasLayer/Tools/selecting" to="." method="_on_selecting_pressed"]
+[connection signal="pressed" from="MainCamera/CanvasLayer/Tools/plow" to="." method="_on_plow_pressed"]
