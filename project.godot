@@ -24,6 +24,8 @@ QuestList="*res://Scripts/QuestList.gd"
 ScenesMenager="*res://Scripts/scenes_menager.gd"
 Save="*res://Scripts/save.gd"
 TimeMenager="*res://Scripts/time_menager.gd"
+FieldsMenager="*res://Scripts/fields_menager.gd"
+DisableAreas="*res://Scripts/disable_areas.gd"
 
 [display]
 

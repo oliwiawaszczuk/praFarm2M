@@ -1,0 +1,30 @@
+[
+	{
+		"pos_x": 1,
+		"pos_y": -1,
+		"speed_of_growing": 1,
+		"state_of_growing": "EMPTY",
+		"time_of_growing": 0
+	},
+	{
+		"pos_x": 0,
+		"pos_y": 0,
+		"speed_of_growing": 1,
+		"state_of_growing": "GROWING",
+		"time_of_growing": 0.0385246212698412
+	},
+	{
+		"pos_x": -1,
+		"pos_y": 0,
+		"speed_of_growing": 1,
+		"state_of_growing": "PLOWED",
+		"time_of_growing": 0
+	},
+	{
+		"pos_x": -1,
+		"pos_y": -1,
+		"speed_of_growing": 1,
+		"state_of_growing": "EMPTY",
+		"time_of_growing": 0
+	}
+]

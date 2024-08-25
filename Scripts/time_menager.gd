@@ -43,8 +43,9 @@ func update_light_color():
 			color = day_color.lerp(night_color, factor)
 	
 	#print("czas, ", Global.current_time, " time of day: ", Global.current_time_of_day)
-	if Global.current_time >= 4.3 and Global.current_time < 10.0: # and Global.current_time_of_day != Global.time_of_day_state.SUNRISE:
+	if Global.current_time >= 4.5 and Global.current_time < 10.0: # and Global.current_time_of_day != Global.time_of_day_state.SUNRISE:
 		Global.current_time_of_day = Global.time_of_day_state.SUNRISE
+		# Global.sun_ratio = ?
 		update_time_of_day_sprite()
 	elif Global.current_time >= 10.0 and Global.current_time < 17.0 : #and Global.current_time_of_day != Global.time_of_day_state.MIDDAY:
 		Global.current_time_of_day = Global.time_of_day_state.MIDDAY

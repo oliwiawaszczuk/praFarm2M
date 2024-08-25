@@ -8,24 +8,22 @@ var start: Vector2 = Vector2()
 var is_pressed: bool = false
 
 var camera: Camera2D
-var coords_label: Label
 @export var terrain_tilemap: TileMap
 
 func _ready():
 	Global.ChangeCursor()
 	camera = get_node("MainCamera")
 	camera.position = Global.camera_position
-	coords_label = $MainCamera/CanvasLayer/HBoxContainer/Coords
 	terrain_tilemap = $Terrain
 
 func _input(event):
 	KeyDetect(event)
-	if !Global.is_paused:
+	if ScenesMenager.current_scene == ScenesMenager.Scene.Game: #and !DisableAreas.is_busy_area(get_local_mouse_position()):
 		MouseMove(event)
 		ScreenTouch(event)
 		if Global.current_tool == Global.Tools.selecting:
 			Detect_tile(event)
-		if Global.current_tool == Global.Tools.plowing:
+		if Global.current_tool == Global.Tools.hoe:
 			Plow_tile(event)
 
 func _process(_delta):
@@ -86,7 +84,7 @@ func Detect_tile(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 			var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
-			coords_label.text = get_tile_data_by_tile_pos(tile_pos)
+			Global.coords_label.text = get_tile_data_by_tile_pos(tile_pos)
 
 func Plow_tile(event):
 	if event is InputEventMouseButton:
@@ -98,6 +96,7 @@ func Plow_tile(event):
 				var can_plow = tile_data.get_custom_data("can_plow")
 				if can_plow:
 					terrain_tilemap.set_cell(0, tile_pos, 0, Vector2i(2, 0), 0)
+					FieldsMenager.add_new_field(tile_pos)
 
 func get_tile_data_by_tile_pos(tile_pos) -> String:
 	var data: String = "(" + str(tile_pos.x) + "," + str(tile_pos.y) + ")"
@@ -105,7 +104,6 @@ func get_tile_data_by_tile_pos(tile_pos) -> String:
 		var tile_data = terrain_tilemap.get_cell_tile_data(i, tile_pos)
 		if tile_data:
 			var tile_name = terrain_tilemap.get_cell_atlas_coords(i, tile_pos)
-			#var tile_name = Tiles.get_tile	_name_by_layer_and_id(i, tile_data.probability)
 			if tile_name != null:
 				data += " - " + str(tile_name)
 	
@@ -116,10 +114,10 @@ func KeyDetect(event):
 		if !ScenesMenager.Menu.visible:
 			if event.keycode == KEY_SPACE:
 				Global.ChangeTool(Global.Tools.to_move)
-			if event.keycode == KEY_1: # keycode to change
-				Global.ChangeTool(Global.Tools.selecting)
-			if event.keycode == KEY_2: # keycode to change
-				Global.ChangeTool(Global.Tools.plowing)
+			#if event.keycode == KEY_1: # keycode to change
+				#Global.ChangeTool(Global.Tools.selecting)
+			#if event.keycode == KEY_2: # keycode to change
+				#Global.ChangeTool(Global.Tools.plowing)
 		if event.keycode == KEY_S:
 			Save.save_game_components()
 		if event.keycode == KEY_P:
@@ -135,4 +133,4 @@ func _on_selecting_pressed() -> void:
 
 func _on_plow_pressed() -> void:
 	if !ScenesMenager.Menu.visible:
-		Global.ChangeTool(Global.Tools.plowing)
+		Global.ChangeTool(Global.Tools.hoe)

@@ -1,7 +1,16 @@
 extends Node
 
 var Menu: Control
+var Seeds_eq: Control
 var PauseButton: Button
+
+enum Scene {
+	Menu,
+	Game,
+	Seeds,
+}
+
+var current_scene = Scene.Menu
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and !event.is_pressed():
@@ -17,15 +26,25 @@ func _input(event: InputEvent) -> void:
 func GoToResumeGame():
 	Global.CursorToTool()
 	Menu.visible = false
-	Global.is_paused = true 
+	Global.is_paused = true
+	current_scene = Scene.Game
 	TogglePause()
+	
 
 func GoToMenu():
 	Global.current_cursor = Global.CursorState.idle
 	Global.ChangeCursor()
 	Menu.visible = true
 	Global.is_paused = false 
+	current_scene = Scene.Menu
 	TogglePause()
+
+func GoToSeedsEq():
+	current_scene = Scene.Seeds
+	Global.current_cursor = Global.CursorState.idle
+	Global.ChangeCursor()
+	Seeds_eq.visible = true
+	
 
 func TogglePause():
 	Global.is_paused = !Global.is_paused

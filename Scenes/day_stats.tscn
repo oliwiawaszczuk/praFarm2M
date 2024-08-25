@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dtng7j6cie1bd" path="res://Assets/tools/resumed.png" id="4_w1uvp"]
 
 [node name="Day_stats" type="Control"]
+z_index = 1
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -17,18 +18,21 @@ grow_vertical = 0
 script = ExtResource("1_26qnu")
 
 [node name="TimeDayMoneyContainer" type="Sprite2D" parent="."]
+z_index = 1
 texture_filter = 1
 position = Vector2(0, -40)
 scale = Vector2(3.19, 3.19)
 texture = ExtResource("1_6jrni")
 
 [node name="time_of_day" type="Sprite2D" parent="TimeDayMoneyContainer"]
+z_index = 2
 texture_filter = 1
 position = Vector2(-16.8, -2.24402)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_lyxqa")
 
 [node name="days" type="Label" parent="TimeDayMoneyContainer"]
+z_index = 2
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -46,6 +50,7 @@ text = "
 "
 
 [node name="hour" type="Label" parent="TimeDayMoneyContainer"]
+z_index = 2
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -61,6 +66,7 @@ scale = Vector2(0.3, 0.3)
 theme_override_font_sizes/font_size = 33
 
 [node name="pause" type="Button" parent="TimeDayMoneyContainer"]
+z_index = 2
 texture_filter = 1
 offset_left = 14.6269
 offset_top = -7.7612
@@ -71,5 +77,31 @@ focus_mode = 0
 icon = ExtResource("4_w1uvp")
 flat = true
 
+[node name="money" type="Label" parent="TimeDayMoneyContainer"]
+offset_left = 48.0
+offset_top = -9.0
+offset_right = 175.0
+offset_bottom = 73.0
+scale = Vector2(0.17, 0.17)
+theme_override_font_sizes/font_size = 37
+text = "
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="busy_area" type="Control" parent="."]
+z_index = -1
+z_as_relative = false
+anchors_preset = 0
+offset_left = -224.0
+offset_top = -74.0
+offset_right = 227.0
+offset_bottom = -19.0
+mouse_filter = 2
+
 [connection signal="tree_entered" from="TimeDayMoneyContainer" to="." method="_on_time_day_money_container_tree_entered"]
+[connection signal="mouse_entered" from="TimeDayMoneyContainer/pause" to="." method="_on_pause_mouse_entered"]
+[connection signal="mouse_exited" from="TimeDayMoneyContainer/pause" to="." method="_on_pause_mouse_exited"]
 [connection signal="pressed" from="TimeDayMoneyContainer/pause" to="." method="_on_pause_pressed"]
+[connection signal="mouse_entered" from="busy_area" to="." method="_on_busy_area_mouse_entered"]
+[connection signal="mouse_exited" from="busy_area" to="." method="_on_busy_area_mouse_exited"]

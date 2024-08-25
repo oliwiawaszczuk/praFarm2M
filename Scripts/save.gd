@@ -12,6 +12,7 @@ class Hexagon:
 
 var TILEMAP_TERRAIN_FILE_NAME = "terrain_save"
 var GLOBAL_VARIABLES_FILE_NAME = "global"
+var FIELDS_FILE_NAME = "fields"
 
 func _ready():
 	if has_node("../Terrain"):
@@ -39,14 +40,17 @@ func save_game_components():
 	print("saving")
 	var data_to_save = {
 		"day_count": Global.day_count,
-		"current_time": Global.current_time
+		"current_time": Global.current_time,
+		"money": Global.money,
 	}
 	save_data_to_file(data_to_save, GLOBAL_VARIABLES_FILE_NAME)
 	save_data_to_file(GetTerrainData(), TILEMAP_TERRAIN_FILE_NAME)
+	save_data_to_file(GetFieldData(), FIELDS_FILE_NAME)
 
 func load_game_components():
 	load_terrain()
 	load_global_variables()
+	load_fields_data()
 
 func GetTerrainData():
 	var hex_data = []
@@ -59,6 +63,12 @@ func GetTerrainData():
 		hex_data.append(hexagon.to_dict())
 	
 	return hex_data
+
+func GetFieldData():
+	var fields_data = []
+	for field in FieldsMenager.fields:
+		fields_data.append(field.to_dict())
+	return fields_data
 
 func load_terrain():
 	var data = read_data_from_file(TILEMAP_TERRAIN_FILE_NAME)
@@ -85,5 +95,14 @@ func load_global_variables():
 	if typeof(data) == TYPE_DICTIONARY:
 		Global.day_count = data["day_count"]
 		Global.current_time = data["current_time"]
+		Global.money = data["money"]
 	else:
 		print("Unexpected error in read file")
+
+func load_fields_data():
+	var data = read_data_from_file(FIELDS_FILE_NAME)
+	var fields_data = []
+	if typeof(data) == TYPE_ARRAY:
+		for field_data in data:
+			print("loaded: ", field_data)
+			FieldsMenager.fields.append(FieldsMenager.Field.new().from_dict(field_data))
