@@ -21,10 +21,12 @@ func _input(event):
 	if ScenesMenager.current_scene == ScenesMenager.Scene.Game: #and !DisableAreas.is_busy_area(get_local_mouse_position()):
 		MouseMove(event)
 		ScreenTouch(event)
-		if Global.current_tool == Global.Tools.selecting:
-			Detect_tile(event)
+		Selecting_tile(event)
 		if Global.current_tool == Global.Tools.hoe:
 			Plow_tile(event)
+		
+		if  Global.current_tool == Global.Tools.placing:
+			Adding_grass(event)
 
 func _process(_delta):
 	if is_pressed:
@@ -80,11 +82,17 @@ func ScreenTouch(event):
 		if event.pressed:
 			print("Dotknięto: ", event.position)
 
-func Detect_tile(event):
+func Selecting_tile(event):
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
-			var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
-			Global.coords_label.text = get_tile_data_by_tile_pos(tile_pos)
+		if !event.pressed:
+			if Global.current_tool == Global.Tools.selecting and event.button_index == MOUSE_BUTTON_LEFT:
+				Detect_tile(event)
+			if event.button_index == MOUSE_BUTTON_RIGHT:
+				Detect_tile(event)
+
+func Detect_tile(event):
+	var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
+	Global.coords_label.text = get_tile_data_by_tile_pos(tile_pos)
 
 func Plow_tile(event):
 	if event is InputEventMouseButton:
@@ -97,6 +105,22 @@ func Plow_tile(event):
 				if can_plow:
 					terrain_tilemap.set_cell(0, tile_pos, 0, Vector2i(2, 0), 0)
 					FieldsMenager.add_new_field(tile_pos)
+
+var prev_tile: TileData
+func Adding_grass(event):
+	var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
+	if terrain_tilemap.get_cell_tile_data(0, tile_pos) == null:
+		if prev_tile != terrain_tilemap.get_cell_tile_data(Global.PREV_LAYER, tile_pos) or prev_tile == null:
+			terrain_tilemap.clear_layer(Global.PREV_LAYER)
+			terrain_tilemap.set_cell(Global.PREV_LAYER, tile_pos, 0, Vector2(0, 0))
+			prev_tile = terrain_tilemap.get_cell_tile_data(Global.PREV_LAYER, tile_pos)
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
+				if Global.try_remove_money_name("hexagon"):
+					terrain_tilemap.set_cell(0, tile_pos, 0, Vector2(0, 0), 0)
+	else:
+		terrain_tilemap.clear_layer(Global.PREV_LAYER)
+		prev_tile = null
 
 func get_tile_data_by_tile_pos(tile_pos) -> String:
 	var data: String = "(" + str(tile_pos.x) + "," + str(tile_pos.y) + ")"
@@ -114,15 +138,13 @@ func KeyDetect(event):
 		if !ScenesMenager.Menu.visible:
 			if event.keycode == KEY_SPACE:
 				Global.ChangeTool(Global.Tools.to_move)
-			#if event.keycode == KEY_1: # keycode to change
-				#Global.ChangeTool(Global.Tools.selecting)
-			#if event.keycode == KEY_2: # keycode to change
-				#Global.ChangeTool(Global.Tools.plowing)
+			if event.keycode == KEY_1: # keycode to change
+				Global.ChangeTool(Global.Tools.selecting)
 		if event.keycode == KEY_S:
 			Save.save_game_components()
 		if event.keycode == KEY_P:
 			ScenesMenager.TogglePause()
-			
+
 func _on_to_move_pressed() -> void:
 	if !ScenesMenager.Menu.visible:
 		Global.ChangeTool(Global.Tools.to_move)

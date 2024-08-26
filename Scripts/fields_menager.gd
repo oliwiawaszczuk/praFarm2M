@@ -23,7 +23,7 @@ class Field:
 		
 		return self
 
-enum FIELD_STATE{
+enum FIELD_STATE {
 	EMPTY,
 	PLOWED,
 	WATERED,

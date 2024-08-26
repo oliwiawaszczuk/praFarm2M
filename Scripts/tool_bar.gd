@@ -13,6 +13,9 @@ func _ready() -> void:
 	
 	DisableAreas.busy_areas.append($busy_area)
 	Global.seed_tool = $Tools/field/seed
+	
+	# cost
+	$Tools/edit/hexagon/cost.text = str(Global.cost["hexagon"])
 
 func set_visible_false_for_container_of_tools():
 	for container in containers_tools:
@@ -85,3 +88,7 @@ func _on_watering_can_pressed() -> void:
 
 func _on_seed_pressed() -> void:
 	ScenesMenager.GoToSeedsEq()
+
+
+func _on_hexagon_pressed() -> void:
+	Global.ChangeTool(Global.Tools.placing)

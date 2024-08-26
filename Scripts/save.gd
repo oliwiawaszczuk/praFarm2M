@@ -104,5 +104,5 @@ func load_fields_data():
 	var fields_data = []
 	if typeof(data) == TYPE_ARRAY:
 		for field_data in data:
-			print("loaded: ", field_data)
+			#print("loaded: ", field_data)
 			FieldsMenager.fields.append(FieldsMenager.Field.new().from_dict(field_data))

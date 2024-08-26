@@ -1,5 +1,8 @@
 extends Node
 
+# ---- TERRAIN ----
+var PREV_LAYER: int = 4
+
 # ---- CURSOR ----
 enum CursorState {
 	to_move,
@@ -12,14 +15,14 @@ enum CursorState {
 }
 enum Tools {
 	to_move,
-	putting,
+	placing,
 	selecting,
 	hoe,
 	watering_can
 }
 var tool_to_cursor_map = {
 	Tools.to_move: CursorState.to_move,
-	Tools.putting: CursorState.select,
+	Tools.placing: CursorState.select,
 	Tools.selecting: CursorState.selecting,
 	Tools.hoe: CursorState.plowing,
 	Tools.watering_can: CursorState.watering_can,
@@ -59,6 +62,7 @@ class Seed:
 	func _init(name: String, texture: Texture2D):
 		self.name = name
 		self.texture = texture
+
 var coords_label: Label
 var sun_ratio: float
 var seed_tool: Button
@@ -88,3 +92,18 @@ var money_label: Label
 func add_money(number: int):
 	money += number
 	money_label.text = str(money)
+
+var cost: Dictionary = {
+	"hexagon": 10,
+}
+
+func try_remove_money_int(value: int) -> bool:
+	if money - value < 0:
+		return false
+	else:
+		money -= value
+		money_label.text = str(money)
+		return true
+
+func try_remove_money_name(name: String) -> bool:
+	return try_remove_money_int(cost[name])

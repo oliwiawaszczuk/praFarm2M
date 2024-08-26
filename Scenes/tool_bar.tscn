@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bspaj5uyfhntd"]
+[gd_scene load_steps=8 format=3 uid="uid://bspaj5uyfhntd"]
 
 [ext_resource type="Texture2D" uid="uid://w8dijrj1temi" path="res://Assets/tools/s_to_move.png" id="1_blsuj"]
 [ext_resource type="Script" path="res://Scripts/tool_bar.gd" id="1_sbj0h"]
 [ext_resource type="Texture2D" uid="uid://ctros82fg8vnq" path="res://Assets/tools/s_selecting.png" id="2_v7x7a"]
 [ext_resource type="Texture2D" uid="uid://c182gbtsb2ll1" path="res://Assets/tools/s_hoe.png" id="3_kk2v0"]
+[ext_resource type="Texture2D" uid="uid://diiqjnqlpsdgu" path="res://Assets/tools/s_hexagon.png" id="4_724jg"]
 [ext_resource type="Texture2D" uid="uid://cou1jxtfk6vo7" path="res://Assets/tools/s_watering_can.png" id="5_lm1gw"]
 [ext_resource type="Texture2D" uid="uid://b7eg8iq0476gu" path="res://Assets/tools/s_seed.png" id="6_3jr72"]
 
@@ -18,6 +19,12 @@ offset_bottom = 716.0
 grow_horizontal = 0
 mouse_filter = 1
 script = ExtResource("1_sbj0h")
+
+[node name="busy_area" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 39.0
+offset_right = 211.0
+offset_bottom = 187.0
 
 [node name="VBoxBar" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -77,6 +84,7 @@ offset_bottom = 180.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 0
 
 [node name="to_move" type="Button" parent="Tools/view"]
 layout_mode = 2
@@ -104,6 +112,32 @@ offset_bottom = 180.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 0
+
+[node name="hexagon" type="Button" parent="Tools/edit"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+icon = ExtResource("4_724jg")
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="cost" type="Label" parent="Tools/edit/hexagon"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.1699
+offset_top = -29.1765
+offset_right = -8.16994
+offset_bottom = -6.17647
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 21
+horizontal_alignment = 2
 
 [node name="field" type="VBoxContainer" parent="Tools"]
 layout_mode = 1
@@ -115,6 +149,7 @@ offset_bottom = 180.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 0
 
 [node name="hoe" type="Button" parent="Tools/field"]
 layout_mode = 2
@@ -143,20 +178,14 @@ icon = ExtResource("6_3jr72")
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="busy_area" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 39.0
-offset_right = 211.0
-offset_bottom = 187.0
-mouse_filter = 2
-
+[connection signal="mouse_entered" from="busy_area" to="." method="_on_busy_area_mouse_entered"]
+[connection signal="mouse_exited" from="busy_area" to="." method="_on_busy_area_mouse_exited"]
 [connection signal="pressed" from="VBoxBar/view" to="." method="_on_view_pressed"]
 [connection signal="pressed" from="VBoxBar/edit" to="." method="_on_edit_pressed"]
 [connection signal="pressed" from="VBoxBar/field" to="." method="_on_field_pressed"]
 [connection signal="pressed" from="Tools/view/to_move" to="." method="_on_to_move_pressed"]
 [connection signal="pressed" from="Tools/view/selecting" to="." method="_on_selecting_pressed"]
+[connection signal="pressed" from="Tools/edit/hexagon" to="." method="_on_hexagon_pressed"]
 [connection signal="pressed" from="Tools/field/hoe" to="." method="_on_hoe_pressed"]
 [connection signal="pressed" from="Tools/field/watering_can" to="." method="_on_watering_can_pressed"]
 [connection signal="pressed" from="Tools/field/seed" to="." method="_on_seed_pressed"]
-[connection signal="mouse_entered" from="busy_area" to="." method="_on_busy_area_mouse_entered"]
-[connection signal="mouse_exited" from="busy_area" to="." method="_on_busy_area_mouse_exited"]
