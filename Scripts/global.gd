@@ -2,6 +2,7 @@ extends Node
 
 # ---- TERRAIN ----
 var PREV_LAYER: int = 4
+var PLANT_LAYER: int = 3
 
 # ---- CURSOR ----
 enum CursorState {
@@ -12,13 +13,18 @@ enum CursorState {
 	select,
 	plowing,
 	watering_can,
+	basket,
+	shovel
 }
 enum Tools {
 	to_move,
 	placing,
 	selecting,
 	hoe,
-	watering_can
+	watering_can,
+	basket,
+	shovel,
+	seeding
 }
 var tool_to_cursor_map = {
 	Tools.to_move: CursorState.to_move,
@@ -26,6 +32,8 @@ var tool_to_cursor_map = {
 	Tools.selecting: CursorState.selecting,
 	Tools.hoe: CursorState.plowing,
 	Tools.watering_can: CursorState.watering_can,
+	Tools.basket: CursorState.basket,
+	Tools.shovel: CursorState.shovel,
 }
 var current_cursor: CursorState = CursorState.selecting
 var current_tool: Tools = Tools.selecting
@@ -41,6 +49,9 @@ func CursorToTool():
 	else:
 		current_cursor = try_cursor
 		ChangeCursor()
+	
+	terrain_tilemap.clear_layer(Global.PREV_LAYER)
+	
 func ChangeCursor(custon_path = null):
 	var cursor = ''
 	if custon_path:
@@ -58,10 +69,14 @@ func ChangeCursor(custon_path = null):
 class Seed:
 	var name: String
 	var texture: Texture2D
+	var atlas_coord_y: int
+	var file_name: String
 	
-	func _init(name: String, texture: Texture2D):
+	func _init(name: String, texture: Texture2D, atlas_coord_y: int, file_name: String):
 		self.name = name
 		self.texture = texture
+		self.atlas_coord_y = atlas_coord_y
+		self.file_name = file_name
 
 var coords_label: Label
 var sun_ratio: float

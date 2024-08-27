@@ -106,3 +106,4 @@ func load_fields_data():
 		for field_data in data:
 			#print("loaded: ", field_data)
 			FieldsMenager.fields.append(FieldsMenager.Field.new().from_dict(field_data))
+		FieldsMenager.load_field_data()

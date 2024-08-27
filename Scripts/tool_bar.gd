@@ -88,7 +88,19 @@ func _on_watering_can_pressed() -> void:
 
 func _on_seed_pressed() -> void:
 	ScenesMenager.GoToSeedsEq()
+	set_tool_name_label("Seeds")
 
 
 func _on_hexagon_pressed() -> void:
 	Global.ChangeTool(Global.Tools.placing)
+	set_tool_name_label("Adding grass")
+
+
+func _on_basket_pressed() -> void:
+	Global.ChangeTool(Global.Tools.basket)
+	set_tool_name_label("Collecting plants")
+
+
+func _on_shovel_pressed() -> void:
+	Global.ChangeTool(Global.Tools.shovel)
+	set_tool_name_label("Shovel")

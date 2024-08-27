@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btuw575cpswnw"
-path="res://.godot/imported/potato.png-f378fe5a4fb53daac251f35ab6a244dd.ctex"
+uid="uid://c3gb46ssmtj4e"
+path="res://.godot/imported/shovel.png-26ebc5d10685f3a0ccc8d86804c219a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/seeds/potato.png"
-dest_files=["res://.godot/imported/potato.png-f378fe5a4fb53daac251f35ab6a244dd.ctex"]
+source_file="res://Assets/cursor/shovel.png"
+dest_files=["res://.godot/imported/shovel.png-26ebc5d10685f3a0ccc8d86804c219a6.ctex"]
 
 [params]
 

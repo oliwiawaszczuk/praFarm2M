@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ckd7qlexbmgbt"]
+[gd_scene load_steps=13 format=3 uid="uid://ckd7qlexbmgbt"]
 
 [ext_resource type="Texture2D" uid="uid://b31ycnuo37x6n" path="res://Assets/tileset.png" id="1_1kyjy"]
 [ext_resource type="Script" path="res://Scripts/mouse_controller.gd" id="1_c7uhv"]
@@ -9,9 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://btqi2lo2bpgh2" path="res://Assets/king_duck_win_template.png" id="6_qw48u"]
 [ext_resource type="Script" path="res://Scripts/quest.gd" id="7_0on2x"]
 [ext_resource type="Texture2D" uid="uid://dmo105wwgolj2" path="res://Assets/dialog.png" id="8_dgeai"]
-[ext_resource type="Texture2D" uid="uid://w8dijrj1temi" path="res://Assets/tools/s_to_move.png" id="10_5iec3"]
-[ext_resource type="Texture2D" uid="uid://ctros82fg8vnq" path="res://Assets/tools/s_selecting.png" id="11_qmwl5"]
-[ext_resource type="Texture2D" uid="uid://c182gbtsb2ll1" path="res://Assets/tools/s_hoe.png" id="13_quro0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0j7xr"]
 resource_name = "terrain"
@@ -21,6 +18,7 @@ texture_region_size = Vector2i(32, 32)
 1:0/0/probability = 2.0
 2:0/0 = 0
 2:0/0/probability = 3.0
+2:0/0/custom_data_1 = true
 3:0/0 = 0
 3:0/0/probability = 4.0
 4:0/0 = 0
@@ -310,6 +308,8 @@ tile_offset_axis = 1
 tile_size = Vector2i(32, 32)
 custom_data_layer_0/name = "can_plow"
 custom_data_layer_0/type = 1
+custom_data_layer_1/name = "can_plant"
+custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_0j7xr")
 sources/1 = SubResource("TileSetAtlasSource_18qee")
 
@@ -340,21 +340,14 @@ layer_2/z_index = 2
 layer_3/name = "Plant"
 layer_3/z_index = 3
 layer_4/name = "prev"
-layer_4/modulate = Color(0.925353, 0.925353, 0.925353, 0.596078)
+layer_4/modulate = Color(0.783525, 0.783523, 0.783523, 0.596078)
+layer_4/z_index = 4
 
 [node name="MainCamera" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="MainCamera"]
 script = ExtResource("6_5bt5a")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainCamera/CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Coords" type="Label" parent="MainCamera/CanvasLayer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
 
 [node name="KingDuckWin" type="TextureRect" parent="MainCamera/CanvasLayer"]
 visible = false
@@ -439,52 +432,3 @@ scale = Vector2(0.3, 0.3)
 texture_filter = 1
 position = Vector2(-59, -1)
 scale = Vector2(0.810855, 0.810855)
-
-[node name="Tools" type="VBoxContainer" parent="MainCamera/CanvasLayer"]
-visible = false
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -216.0
-offset_top = 6.0
-offset_right = 75.0
-offset_bottom = 278.0
-grow_horizontal = 0
-scale = Vector2(0.7, 0.7)
-size_flags_horizontal = 8
-size_flags_vertical = 4
-
-[node name="to_move" type="Button" parent="MainCamera/CanvasLayer/Tools"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 26
-keep_pressed_outside = true
-text = "Space - to move"
-icon = ExtResource("10_5iec3")
-icon_alignment = 2
-
-[node name="selecting" type="Button" parent="MainCamera/CanvasLayer/Tools"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 26
-text = "1 - to select"
-icon = ExtResource("11_qmwl5")
-icon_alignment = 2
-
-[node name="plow" type="Button" parent="MainCamera/CanvasLayer/Tools"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 26
-text = "2 - to plow"
-icon = ExtResource("13_quro0")
-icon_alignment = 2
-
-[connection signal="pressed" from="MainCamera/CanvasLayer/Tools/to_move" to="." method="_on_to_move_pressed"]
-[connection signal="pressed" from="MainCamera/CanvasLayer/Tools/selecting" to="." method="_on_selecting_pressed"]
-[connection signal="pressed" from="MainCamera/CanvasLayer/Tools/plow" to="." method="_on_plow_pressed"]
