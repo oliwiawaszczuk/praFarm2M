@@ -43,11 +43,17 @@ func save_game_components():
 		"current_time": Global.current_time,
 		"money": Global.money,
 	}
+	data_to_save.merge(Global.return_seed_eq_as_dict())
 	save_data_to_file(data_to_save, GLOBAL_VARIABLES_FILE_NAME)
 	save_data_to_file(GetTerrainData(), TILEMAP_TERRAIN_FILE_NAME)
 	save_data_to_file(GetFieldData(), FIELDS_FILE_NAME)
 
 func load_game_components():
+	if Global.plants.is_empty():
+		var plants = load_all_plant_data_from_directory("res://Data/Plants")
+		for plant in plants:
+			Global.plants.append(plant)
+			Global.seed_eq_count[plant] = 0
 	load_terrain()
 	load_global_variables()
 	load_fields_data()
@@ -96,6 +102,7 @@ func load_global_variables():
 		Global.day_count = data["day_count"]
 		Global.current_time = data["current_time"]
 		Global.money = data["money"]
+		Global.load_dict_to_seed_eq(data)
 	else:
 		print("Unexpected error in read file")
 
@@ -107,3 +114,21 @@ func load_fields_data():
 			#print("loaded: ", field_data)
 			FieldsMenager.fields.append(FieldsMenager.Field.new().from_dict(field_data))
 		FieldsMenager.load_field_data()
+
+func load_all_plant_data_from_directory(directory: String) -> Array:
+	var plant_data_list = []
+	
+	var dir = DirAccess.open(directory)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".tres"):
+				var resource_path = directory + "/" + file_name
+				var plant_data = load(resource_path) as PlantData
+				if plant_data:
+					plant_data_list.append(plant_data)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	
+	return plant_data_list

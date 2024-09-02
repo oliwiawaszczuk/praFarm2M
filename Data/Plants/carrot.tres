@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlantData" load_steps=3 format=3 uid="uid://tpgetppg0fxb"]
+
+[ext_resource type="Script" path="res://Scripts/PlantData.gd" id="1_uqt4c"]
+[ext_resource type="Texture2D" uid="uid://mdfi1o7via2l" path="res://Assets/seeds/4_carrot.png" id="2_2bxvk"]
+
+[resource]
+script = ExtResource("1_uqt4c")
+seed_sprite = ExtResource("2_2bxvk")
+name = "carrot"
+cost = 4
+sell = 2
+atlas_coord_y = 4

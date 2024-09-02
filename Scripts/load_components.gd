@@ -10,7 +10,6 @@ func _ready() -> void:
 	# MENU
 	ScenesMenager.Menu = Menu_scene.instantiate() as Control
 	add_child(ScenesMenager.Menu)
-	ScenesMenager.GoToMenu()
 	
 	# DAY STATS
 	var Day_stats = Day_stats_scene.instantiate() as Control
@@ -29,3 +28,8 @@ func _ready() -> void:
 	ScenesMenager.Seeds_eq = Seeds_eq_scene.instantiate() as Control
 	add_child(ScenesMenager.Seeds_eq)
 	ScenesMenager.Seeds_eq.visible = false
+	
+	# START RENDER
+	ScenesMenager.GoToMenu()
+	ScenesMenager.GoToResumeGame()
+	ScenesMenager.GoToMenu()

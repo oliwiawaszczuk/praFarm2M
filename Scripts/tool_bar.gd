@@ -11,7 +11,6 @@ func _ready() -> void:
 	set_visible_false_for_container_of_tools()
 	$Tools/view.visible = true
 	
-	DisableAreas.busy_areas.append($busy_area)
 	Global.seed_tool = $Tools/field/seed
 	
 	# cost

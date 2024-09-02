@@ -65,25 +65,50 @@ func ChangeCursor(custon_path = null):
 		push_error("cannot load cursor")
 		Input.set_custom_mouse_cursor(null)
 
+func ChangeCursorBySprite(sprite):
+	Input.set_custom_mouse_cursor(sprite, Input.CURSOR_ARROW, Vector2(6, 6))
+
 # ---- FIELD ----
-class Seed:
-	var name: String
-	var texture: Texture2D
-	var atlas_coord_y: int
-	var file_name: String
-	
-	func _init(name: String, texture: Texture2D, atlas_coord_y: int, file_name: String):
-		self.name = name
-		self.texture = texture
-		self.atlas_coord_y = atlas_coord_y
-		self.file_name = file_name
+var plants: Array[PlantData] = []
+var seed_eq_count: Dictionary = {}
+
+func add_to_seed_eq_by_seed_name(name: String, count: int):
+	var seed = find_seed_by_name(name)
+	seed_eq_count[seed] += count
+
+func return_seed_eq_as_string():
+	var text: String = ""
+	for seed in seed_eq_count:
+		text += str(seed.name) + " - " + str(seed_eq_count[seed]) + "\n"
+	return text
+
+func return_seed_eq_as_dict():
+	var dict = {}
+	for seed in seed_eq_count:
+		dict[seed.name] = str(seed_eq_count[seed])
+	return dict
+
+func load_dict_to_seed_eq(data):
+	var names = []
+	for key in seed_eq_count.keys():
+		names.append(key.name)
+	for name in data:
+		if name in names:
+			var seed = find_seed_by_name(name)
+			seed_eq_count[seed] = int(data[name])
 
 var coords_label: Label
 var sun_ratio: float
 var seed_tool: Button
-var current_seed: Seed
-func set_seed(seed: Seed):
+var current_seed: PlantData
+func set_seed(seed):
 	current_seed = seed
+
+func find_seed_by_name(name: String):
+	for seed in plants:
+		if seed.name == name:
+			return seed
+	return null
 
 # ---- GAME ----
 var game_area: bool = false
@@ -110,6 +135,10 @@ func add_money(number: int):
 
 var cost: Dictionary = {
 	"hexagon": 10,
+}
+
+var sell: Dictionary = {
+	"hexagon": 8,
 }
 
 func try_remove_money_int(value: int) -> bool:

@@ -18,6 +18,7 @@ func _ready():
 
 func _unhandled_input(event: InputEvent) -> void:
 	KeyDetect(event)
+	Selecting_tile(event)
 	if ScenesMenager.current_scene == ScenesMenager.Scene.Game: #and !DisableAreas.is_busy_area(get_local_mouse_position()):
 		MouseMove(event)
 		ScreenTouch(event)
@@ -28,20 +29,30 @@ func _unhandled_input(event: InputEvent) -> void:
 		if Global.current_tool == Global.Tools.shovel:
 			Removing_grass(event)
 		
-		if Global.current_tool == Global.Tools.basket:
+		if Global.current_tool == Global.Tools.watering_can:
 			Watering(event)
 		
 		if event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
-				Selecting_tile(event)
 				if Global.current_tool == Global.Tools.hoe:
 					Plow_tile()
 				if Global.current_tool == Global.Tools.seeding:
 					Seeding()
+				if Global.current_tool == Global.Tools.basket:
+					Collect_seed()
 
 func _process(_delta):
 	if is_pressed:
 		MoveScreen()
+	
+	if is_watering:
+		var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
+		if terrain_tilemap.get_cell_tile_data(0, tile_pos) != null:
+			FieldsMenager.Hydration(tile_pos, 0.1)
+			FieldsMenager.get_stats_of_field(tile_pos)
+	
+	if Global.current_tool == Global.Tools.selecting:
+		Detect_tile()
 
 func MoveScreen():
 	var mouse_pos = get_viewport().get_mouse_position()
@@ -95,25 +106,28 @@ func ScreenTouch(event):
 
 func Selecting_tile(event):
 	if event is InputEventMouseButton:
-		if !event.pressed:
-			if Global.current_tool == Global.Tools.selecting and event.button_index == MOUSE_BUTTON_LEFT:
-				Detect_tile()
-			if event.button_index == MOUSE_BUTTON_RIGHT:
-				Detect_tile()
+		if event.button_index == MOUSE_BUTTON_RIGHT:
+			Detect_tile()
 
 func Detect_tile():
 	var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
-	Global.coords_label.text = get_tile_data_by_tile_pos(tile_pos)
+	FieldsMenager.get_stats_of_field(tile_pos)
 
 func Plow_tile():
 	var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
 	var tile_data: TileData = terrain_tilemap.get_cell_tile_data(0, tile_pos)
 	
+	# plow grass
 	if tile_data:
 		var can_plow = tile_data.get_custom_data("can_plow")
+		#print("tile data: ", tile_data, " - can: ", can_plow)
 		if can_plow:
 			terrain_tilemap.set_cell(0, tile_pos, 0, Vector2i(2, 0), 0)
 			FieldsMenager.add_new_field(tile_pos)
+	
+	# plow for empty fild
+	if terrain_tilemap.get_cell_tile_data(Global.PLANT_LAYER, tile_pos):
+		FieldsMenager.Remove_seed_if_exist(tile_pos)
 
 var prev_tile: TileData
 func Adding_grass(event):
@@ -142,6 +156,7 @@ func Removing_grass(event):
 						FieldsMenager.Remove_field_if_exist(tile_pos)
 						terrain_tilemap.set_cell(0, tile_pos, -1)
 						terrain_tilemap.clear_layer(Global.PREV_LAYER)
+						Global.add_money(Global.sell["hexagon"])
 						prev_tile = null
 	else:
 		terrain_tilemap.clear_layer(Global.PREV_LAYER)
@@ -154,23 +169,30 @@ func Seeding():
 		if tile_data != null:
 			var can_plant = tile_data.get_custom_data("can_plant")
 			if can_plant:
-				FieldsMenager.Seed_field(tile_pos, Global.current_seed.atlas_coord_y)
+				FieldsMenager.Seed_field(tile_pos, Global.current_seed.atlas_coord_y, Global.current_seed.name)
 
+var is_watering = false
 func Watering(event):
-	var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
-	if terrain_tilemap.get_cell_tile_data(0, tile_pos) != null:
-		pass # nadownienie - sprawdznie poprawne kiedy moze
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				is_watering = true
+			else:
+				is_watering = false
 
-func get_tile_data_by_tile_pos(tile_pos) -> String:
-	var data: String = "(" + str(tile_pos.x) + "," + str(tile_pos.y) + ")"
-	for i in range(3):
-		var tile_data = terrain_tilemap.get_cell_tile_data(i, tile_pos)
-		if tile_data:
-			var tile_name = terrain_tilemap.get_cell_atlas_coords(i, tile_pos)
-			if tile_name != null:
-				data += " - " + str(tile_name)
-	
-	return data
+func Collect_seed():
+	var tile_pos = terrain_tilemap.local_to_map(terrain_tilemap.get_local_mouse_position())
+	FieldsMenager.collect_file_if_can(tile_pos)
+
+#func get_tile_data_by_tile_pos(tile_pos) -> String:
+	#var data: String = "(" + str(tile_pos.x) + "," + str(tile_pos.y) + ")"
+	#for i in range(3):
+		#var tile_data = terrain_tilemap.get_cell_tile_data(i, tile_pos)
+		#if tile_data:
+			#var tile_name = terrain_tilemap.get_cell_atlas_coords(i, tile_pos)
+			#if tile_name != null:
+				#data += " - " + str(tile_name)
+	#return data
 
 func KeyDetect(event):
 	if event is InputEventKey and !event.is_pressed():

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PlantData" load_steps=3 format=3 uid="uid://b17r0eujx488l"]
+
+[ext_resource type="Script" path="res://Scripts/PlantData.gd" id="1_qjcjd"]
+[ext_resource type="Texture2D" uid="uid://c0gav7o3rqqnm" path="res://Assets/seeds/3_potato.png" id="2_7wue0"]
+
+[resource]
+script = ExtResource("1_qjcjd")
+seed_sprite = ExtResource("2_7wue0")
+name = "potato"
+cost = 4
+sell = 2
+atlas_coord_y = 3

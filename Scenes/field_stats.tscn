@@ -11,6 +11,7 @@ offset_right = -856.0
 offset_bottom = -332.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_tnubf")
 
 [node name="VBox" type="VBoxContainer" parent="."]
@@ -23,5 +24,6 @@ grow_vertical = 2
 
 [node name="coords" type="Label" parent="VBox"]
 layout_mode = 2
+size_flags_vertical = 1
 
 [connection signal="ready" from="." to="." method="_on_ready"]
